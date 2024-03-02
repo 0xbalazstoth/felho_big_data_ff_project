@@ -55,13 +55,26 @@ class Plot:
         self.draw_y_labels()
 
     def draw_bars(self):
-        bar_width = (self.canvas_width - 2 * self.margin) / (len(self.data) * 2 + 1)
-        for i, (label, value) in enumerate(self.data.items()):
-            x1 = self.margin + (2 * i + 1) * bar_width
-            y1 = self.canvas_height - self.margin
-            x2 = x1 + bar_width
-            y2 = self.canvas_height - self.margin - (value / self.y_max_value * (self.canvas_height - 2 * self.margin))
-            self.canvas.create_rectangle(x1, y1, x2, y2, fill="red")
+        num_groups = len(self.groups)
+        num_bars = len(self.x_labels)
+        # Calculate the width of each bar and the spacing between them
+        bar_width = (self.canvas_width - 2 * self.margin) / (num_bars * num_groups + num_bars)
+        group_width = bar_width * num_groups
+
+        # Calculate the total chart width
+        chart_width = group_width * num_bars
+        # Calculate starting x position to center the chart
+        start_x = (self.canvas_width - chart_width) / 2
+
+        for i, label in enumerate(self.x_labels):
+            for j, group in enumerate(self.groups):
+                x1 = start_x + i * group_width + j * bar_width
+                y1 = self.canvas_height - self.margin
+                value = group['values'][label]
+                x2 = x1 + bar_width
+                y2 = self.canvas_height - self.margin - (value / self.y_max_value * (self.canvas_height - 2 * self.margin))
+                color_index = j % len(self.colors)
+                self.canvas.create_rectangle(x1, y1, x2, y2, fill=self.colors[color_index], width=0)
 
     def draw_x_labels(self):
         bar_width = (self.canvas_width - 2 * self.margin) / (len(self.data) * 2 + 1)    
@@ -92,13 +105,24 @@ class Plot:
             font = ("Arial", self.label_font_size, "bold")
             self.canvas.create_text(title_position, text=self.title_text, fill="black", font=font, anchor="n")
 
-    def set_data(self, data_dict):
-        self.data = data_dict
-        self.y_max_value = max(data_dict.values())
-        self.x_labels = list(data_dict.keys())
+    def set_data(self, groups, colors=None):
+        self.groups = groups
+        self.colors = colors or ["red", "green", "blue", "orange"]
+        # Assuming all groups have the same number of items and same x labels
+        self.x_labels = list(groups[0]['values'].keys())
+        # Find the overall max value for y-axis scaling
+        self.y_max_value = max(max(values.values()) for group in groups for values in [group['values']])
 
 root = tk.Tk()
 plot = Plot(root)
 plot.add_title("The number of students enrolled in different courses of an institute.")
-plot.set_data({'C': 25, 'C++': 15, 'Java': 30, 'Python': 35})
+groups = [
+    {'label': 'Group A', 'values': {'C': 25, 'C++': 15, 'Java': 30, 'Python': 35}},
+    {'label': 'Group B', 'values': {'C': 20, 'C++': 10, 'Java': 25, 'Python': 30}},
+    {'label': 'Group C', 'values': {'C': 17, 'C++': 7, 'Java': 2, 'Python': 8}}
+]
+
+# Optional colors for the bars
+colors = ['red', 'blue', 'green']
+plot.set_data(groups, colors)
 root.mainloop()
