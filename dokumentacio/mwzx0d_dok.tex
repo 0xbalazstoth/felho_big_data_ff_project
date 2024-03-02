@@ -1,0 +1,106 @@
+\documentclass{article}
+
+\usepackage[hungarian]{babel}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{white},
+    commentstyle=\color{green},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+% Set code formatting
+\lstset{style=mystyle}
+
+\date{}
+
+\begin{document}
+
+\title{Felhő alapú IoT és Big Data platformok\\ \small Dokumentáció}
+\author{Tóth Balázs - MWZX0D}
+\maketitle
+
+\renewcommand{\contentsname}{Tartalomjegyzék}
+
+\tableofcontents
+\clearpage
+
+\section{Bevezetés}
+A dokumentum bemutatja a \textbf{Python} programozási nyelv és a \textbf{Tkinter} grafikus felhasználói felületi toolkit segítségével fejlesztett Big Data interaktív adatvizualizációs csomagot. A csomag célja lehetővé tenni a felhasználók számára, hogy könnyedén vizualizálják és manipulálják nagy méretű adathalmazokat interaktív módon. A csomagot könnyen integrálhatják különböző adatelemzési folyamatokba és alkalmazásokba, ami lehetővé teszi a felhasználók számára, hogy felfedezzék és megértsék az adatokat a vizualizációk segítségével.
+
+\section{Követelmények}
+A Big Data interaktív adatvizualizációs csomag használatához a következő követelmények teljesülésére van szükség:
+
+\subsection{Python 3 Telepítése}
+\begin{enumerate}
+    \item Látogasson el a Python hivatalos webhelyére a következő címen: \url{https://www.python.org/downloads/}.
+    \item Válassza ki a legfrissebb Python 3 verziót, és kattintson a letöltésre.
+    \item Indítsa el a letöltött fájlt, és kövesse az utasításokat a Python telepítéséhez a rendszerére.
+    \item Ellenőrizze a telepítést a Python verziójának futtatásával a parancssorban vagy terminálban:
+    \begin{lstlisting}[language=bash]
+    python3 --version
+    \end{lstlisting}
+    A rendszernek válaszolnia kell a telepített Python 3 verziójával.
+\end{enumerate}
+
+\subsection{Tkinter Telepítése}
+A Tkinter általában a Python 3 része, így nincs szükség külön telepítésre. Ha mégsem lenne telepítve a rendszerére, akkor a következő parancsok segítségével telepítheti:
+\begin{enumerate}
+    \item \textbf{Debian/Ubuntu rendszerek esetén:}
+    \begin{lstlisting}[language=bash]
+    sudo apt-get update
+    sudo apt-get install python3-tk
+    \end{lstlisting}
+    \item \textbf{Red Hat/Fedora rendszerek esetén:}
+    \begin{lstlisting}[language=bash]
+    sudo dnf install python3-tkinter
+    \end{lstlisting}
+    \item \textbf{Windows rendszerek esetén:}
+    A Python telepítésekor a Tkinter általában automatikusan települ.
+\end{enumerate}
+
+\subsection{Szükséges Python Csomagok Telepítése}
+A Big Data interaktív adatvizualizációs csomag használatához néhány további Python csomagot is telepíteni kell. Ezek a következők:
+\begin{itemize}
+    \item \textbf{numpy:} Matematikai műveletek végrehajtásához.
+    \item \textbf{pandas:} Adatmanipulációhoz és -elemzéshez.
+    \item \textbf{matplotlib:} Grafikonok és diagramok készítéséhez.
+    \item \textbf{seaborn:} Adatvizualizációs könyvtár a matplotlib kiegészítéseként.
+    \item \textbf{scikit-learn:} Gépi tanulás algoritmusokhoz és eszközökhöz.
+\end{itemize}
+Ezeket a csomagokat a Python pip csomagkezelőjével telepítheti:
+\begin{lstlisting}[language=bash]
+pip3 install numpy pandas matplotlib seaborn scikit-learn
+\end{lstlisting}
+Ez a parancs automatikusan letölti és telepíti a felsorolt csomagok legfrissebb verzióit a rendszerére.
+
+\section{Használat}
+Magyarázza el, hogyan kell használni a szoftvert itt.
+
+\section{Kód Példák}
+Itt vannak néhány kód példa:
+
+\subsection{Python Példa}
+\begin{lstlisting}[language=Python, caption=Python Példa]
+def hello_world():
+    print("Hello, world!")
+
+hello_world()
+\end{lstlisting}
+
+\end{document}
