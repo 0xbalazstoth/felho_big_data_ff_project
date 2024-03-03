@@ -1,9 +1,8 @@
 import math
 
-class Barchart:
+class LineChart:
     def __init__(self, canvas, width=600, height=400):
         self.canvas = canvas
-
         self.canvas_width = width
         self.canvas_height = height
         self.title_text = None
@@ -13,6 +12,7 @@ class Barchart:
         self.data = {}
         self.x_labels = []
         self.y_max_value = 10
+        self.colors = ["red", "green", "blue", "orange"]
 
     def on_resize(self, event):
         self.canvas_width = event.width
@@ -43,38 +43,14 @@ class Barchart:
         if self.title_text:
             self.add_title()
 
-        self.draw_bars()
+        self.draw_lines()
         self.draw_x_labels()
         self.draw_y_labels()
-
-    def draw_bars(self):
-        num_groups = len(self.groups)
-        bar_space = 0.2
-        group_space = 1
-        total_space = num_groups + bar_space * (num_groups - 1) + group_space
-        bar_width = (self.canvas_width - 2 * self.margin) / (len(self.x_labels) * total_space)
-        group_width = bar_width * num_groups + bar_space * bar_width * (num_groups - 1)
-
-        for i, x_label in enumerate(self.x_labels):
-            for j, group_data in enumerate(self.groups):
-                x1 = self.margin + (group_width + group_space * bar_width) * i + (bar_width + bar_space * bar_width) * j
-                y1 = self.canvas_height - self.margin
-                value = group_data[x_label]
-                x2 = x1 + bar_width
-                y2 = self.canvas_height - self.margin - (value / self.y_max_value * (self.canvas_height - 2 * self.margin))
-                color_index = j % len(self.colors)
-                self.canvas.create_rectangle(x1, y1, x2, y2, fill=self.colors[color_index], width=0)
-
+        
     def draw_x_labels(self):
-        num_groups = len(self.groups)
-        bar_space = 0.2
-        group_space = 1
-        total_space = num_groups + bar_space * (num_groups - 1) + group_space
-        bar_width = (self.canvas_width - 2 * self.margin) / (len(self.x_labels) * total_space)
-        group_width = bar_width * num_groups + bar_space * bar_width * (num_groups - 1)
-
+        group_width = (self.canvas_width - 2 * self.margin) / len(self.x_labels)
         for i, label in enumerate(self.x_labels):
-            x = self.margin + (group_width + group_space * bar_width) * i + group_width / 2
+            x = self.margin + group_width * (i + 0.5)
             y = self.canvas_height - self.margin / 1.5
             self.canvas.create_text(x, y, text=label, fill="black", font=("Arial", self.label_font_size), anchor="n")
 
@@ -90,6 +66,7 @@ class Barchart:
             self.canvas.create_text(x - tick_length * 2, y, text=label, fill="black", font=("Arial", self.label_font_size), anchor="e")
             self.canvas.create_line(x - tick_length, y, x, y, fill="black")
 
+        
     def add_title(self, title_text=None):
         if title_text:
             self.title_text = title_text
@@ -98,8 +75,22 @@ class Barchart:
             font = ("Arial", self.label_font_size, "bold")
             self.canvas.create_text(title_position, text=self.title_text, fill="black", font=font, anchor="n")
 
+    def draw_lines(self):
+        group_width = (self.canvas_width - 2 * self.margin) / len(self.x_labels)
+        for j, group_data in enumerate(self.groups):
+            previous_x = previous_y = None
+            for i, x_label in enumerate(self.x_labels):
+                x = self.margin + group_width * (i + 0.5)
+                value = group_data[x_label]
+                y = self.canvas_height - self.margin - (value / self.y_max_value * (self.canvas_height - 2 * self.margin))
+                if previous_x is not None and previous_y is not None:
+                    self.canvas.create_line(previous_x, previous_y, x, y, fill=self.colors[j % len(self.colors)], width=2)
+                self.canvas.create_oval(x - 3, y - 3, x + 3, y + 3, fill=self.colors[j % len(self.colors)], outline="")
+                previous_x, previous_y = x, y
+
     def set_data(self, groups, colors=None):
         self.groups = [group['values'] for group in groups]
-        self.colors = colors or ["red", "green", "blue", "orange"]
+        if colors:
+            self.colors = colors
         self.x_labels = list(groups[0]['values'].keys())
         self.y_max_value = max(max(values.values()) for values in self.groups)
