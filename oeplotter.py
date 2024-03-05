@@ -1,6 +1,8 @@
+import random
 import tkinter as tk
 
 from plot_interface import PlotInterface
+from plots.areachart import AreaChart
 from plots.barchart import Barchart
 from plots.linechart import LineChart
 
@@ -22,12 +24,36 @@ groups = [
 # plot_interface.show()
 
 # Line chart
+# plot_interface2 = PlotInterface()
+# linechart = LineChart(plot_interface2.canvas)
+# linechart.add_title("The number of students enrolled in different courses of an institute.")
+
+# colors = ['red', 'blue', 'green', 'yellow']
+# linechart.set_data(groups, colors)
+
+# plot_interface2.plot(linechart)
+# plot_interface2.show()
+
 plot_interface2 = PlotInterface()
-linechart = LineChart(plot_interface2.canvas)
-linechart.add_title("The number of students enrolled in different courses of an institute.")
+areachart = AreaChart(plot_interface2.canvas)  # Step 1: Instantiate AreaChart
+areachart.add_title("The number of students enrolled in different courses of an institute.")  # Step 2: Add a title
 
+categories = [str(year) for year in range(1990, 2020)]
+
+# Define generations
+generations = ["Generation Z", "Millennials", "Generation X", "Baby Boomers"]
+
+# Colors for each generation
 colors = ['red', 'blue', 'green', 'yellow']
-linechart.set_data(groups, colors)
 
-plot_interface2.plot(linechart)
+# Generate random data for each generation across the defined categories
+groups = []
+for gen in generations:
+    values = {cat: random.randint(50, 200) for cat in categories}  # Random values between 50 and 200
+    groups.append({'name': gen, 'values': values})
+
+areachart.set_data(groups, colors)
+areachart.set_data(groups, colors)  # Step 3: Set data and colors
+
+plot_interface2.plot(areachart)
 plot_interface2.show()
