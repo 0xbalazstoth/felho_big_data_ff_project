@@ -29,16 +29,8 @@ class PlotInterface:
         self.color_button = tk.Button(self.frame, text="Choose Color", command=self.choose_color)
         self.color_button.pack(side=tk.LEFT)
 
-        # self.pencil_size_slider = Scale(self.frame, from_=1, to=10, orient=tk.HORIZONTAL, label="Pencil Size")
-        # self.pencil_size_slider.set(2)
-        # self.pencil_size_slider.pack(side=tk.LEFT)
-
         self.eraser_button = tk.Button(self.frame, text="Eraser", command=self.use_eraser)
         self.eraser_button.pack(side=tk.LEFT)
-
-        # self.eraser_size_slider = Scale(self.frame, from_=1, to=50, orient=tk.HORIZONTAL, label="Eraser Size")
-        # self.eraser_size_slider.set(10)
-        # self.eraser_size_slider.pack(side=tk.LEFT)
 
         self.save_button = tk.Button(self.frame, text="Save as PNG", command=self.open_save_dialog)
         self.save_button.pack(side=tk.RIGHT, pady=10)
@@ -62,6 +54,24 @@ class PlotInterface:
         self.pencil_size_slider = Scale(self.frame, from_=1, to=10, orient=tk.HORIZONTAL, label="Pencil Size", variable=self.pencil_size)
         self.eraser_size_slider = Scale(self.frame, from_=1, to=50, orient=tk.HORIZONTAL, label="Eraser Size", variable=self.eraser_size)
 
+        self.zoom_scale = 1.0  # Initialize zoom scale to 1:1
+
+        # Add zoom in and zoom out buttons
+        self.zoom_in_button = tk.Button(self.frame, text="Zoom In", command=self.zoom_in)
+        self.zoom_in_button.pack(side=tk.LEFT)
+
+        self.zoom_out_button = tk.Button(self.frame, text="Zoom Out", command=self.zoom_out)
+        self.zoom_out_button.pack(side=tk.LEFT)
+        
+        self.is_panning = False  # Track whether panning is active
+        self.pan_start_x = None
+        self.pan_start_y = None
+
+        # Bind mouse events for panning
+        self.canvas.bind("<Button-2>", self.start_pan)  # Middle mouse button to start panning
+        self.canvas.bind("<B2-Motion>", self.pan)       # Middle mouse button drag to pan
+        self.canvas.bind("<ButtonRelease-2>", self.end_pan)
+
         self.last_x, self.last_y = None, None
 
     def plot(self, chart):
@@ -77,6 +87,47 @@ class PlotInterface:
     def show(self):
         """Show the Tkinter window with the canvas."""
         self.root.mainloop()
+        
+    def start_pan(self, event):
+        """Start panning action."""
+        self.canvas.scan_mark(event.x, event.y)
+        self.is_panning = True
+        self.pan_start_x, self.pan_start_y = event.x, event.y
+
+    def pan(self, event):
+        """Handle panning as the mouse moves."""
+        if self.is_panning:
+            # Calculate the distance moved from the start point
+            dx, dy = event.x - self.pan_start_x, event.y - self.pan_start_y
+            self.canvas.scan_dragto(event.x, event.y, gain=1)
+            self.pan_start_x, self.pan_start_y = event.x, event.y
+
+    def end_pan(self, event):
+        """End the panning action."""
+        self.is_panning = False
+        self.pan_start_x = None
+        self.pan_start_y = None
+        
+    def zoom_in(self):
+        """Zoom into the canvas."""
+        zoom_factor = 1.1
+        self.apply_zoom(zoom_factor)
+
+    def zoom_out(self):
+        """Zoom out of the canvas."""
+        # Decrease the zoom scale by 10% from 1 (not cumulative)
+        zoom_factor = 0.9
+        self.apply_zoom(zoom_factor)
+
+    def apply_zoom(self, zoom_factor):
+        """Apply the given zoom factor to the canvas."""
+        # Use the center of the canvas for the zoom origin
+        x_origin = self.canvas.winfo_width() / 2
+        y_origin = self.canvas.winfo_height() / 2
+        self.canvas.scale("all", x_origin, y_origin, zoom_factor, zoom_factor)
+
+        # Reset the scroll region to encompass the new canvas size
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
         
     def clear_hand_drawing(self):
         """Clear only the hand-drawn elements from the canvas."""
