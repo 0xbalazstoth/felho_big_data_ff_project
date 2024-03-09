@@ -1,17 +1,15 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox, Toplevel, IntVar, colorchooser
+from tkinter import filedialog, messagebox, Toplevel, IntVar, colorchooser, Scale
 from PIL import Image
 
 class PlotInterface:
-    def __init__(self, width=800, height=600, bg="white", title="Data Visualization Tool", min_width=800, min_height=800):
+    def __init__(self, width=800, height=600, bg="white", title="OEplotter", min_width=800, min_height=800):
         self.width = width
         self.height = height
         self.bg = bg
         self.title = title
         self.min_width = min_width
         self.min_height = min_height
-
-        self.drawing_color = "black"
 
         self.root = tk.Tk()
         self.root.title(self.title)
@@ -23,17 +21,28 @@ class PlotInterface:
         self.canvas = tk.Canvas(self.frame, width=self.width, height=self.height, bg=self.bg)
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
-        # Pencil tool setup
+        self.drawing_color = "black"
+        self.current_tool = "pencil"  # Default tool
+
+        # Pencil button and color picker
         self.pencil_button = tk.Button(self.frame, text="Pencil", command=self.use_pencil)
         self.pencil_button.pack(side=tk.LEFT)
+        self.color_button = tk.Button(self.frame, text="Choose Color", command=self.choose_color)
+        self.color_button.pack(side=tk.LEFT)
 
-        # Eraser tool setup
+        # Pencil size slider
+        self.pencil_size_slider = Scale(self.frame, from_=1, to=10, orient=tk.HORIZONTAL, label="Pencil Size")
+        self.pencil_size_slider.set(2)  # Default size
+        self.pencil_size_slider.pack(side=tk.LEFT)
+
+        # Eraser button
         self.eraser_button = tk.Button(self.frame, text="Eraser", command=self.use_eraser)
         self.eraser_button.pack(side=tk.LEFT)
 
-        # Color picker
-        self.color_button = tk.Button(self.frame, text="Choose Color", command=self.choose_color)
-        self.color_button.pack(side=tk.LEFT)
+        # Eraser size slider
+        self.eraser_size_slider = Scale(self.frame, from_=1, to=50, orient=tk.HORIZONTAL, label="Eraser Size")
+        self.eraser_size_slider.set(10)  # Default size
+        self.eraser_size_slider.pack(side=tk.LEFT)
 
         self.save_button = tk.Button(self.frame, text="Save as PNG", command=self.open_save_dialog)
         self.save_button.pack(side=tk.RIGHT, pady=10)
@@ -57,15 +66,22 @@ class PlotInterface:
     def show(self):
         """Show the Tkinter window with the canvas."""
         self.root.mainloop()
-        
+
     def start_draw(self, event):
         """Initialize the start point for drawing."""
         self.last_x, self.last_y = event.x, event.y
 
     def draw(self, event):
-        """Draw on the canvas."""
+        """Draw on the canvas based on the current tool and its size."""
         if self.last_x and self.last_y:
-            self.canvas.create_line(self.last_x, self.last_y, event.x, event.y, fill=self.drawing_color, width=2)
+            if self.current_tool == "pencil":
+                self.canvas.create_line(self.last_x, self.last_y, event.x, event.y,
+                                        fill=self.drawing_color, width=self.pencil_size_slider.get(),
+                                        capstyle=tk.ROUND, smooth=tk.TRUE)
+            elif self.current_tool == "eraser":
+                self.canvas.create_line(self.last_x, self.last_y, event.x, event.y,
+                                        fill=self.bg, width=self.eraser_size_slider.get(),
+                                        capstyle=tk.ROUND, smooth=tk.TRUE)
             self.last_x, self.last_y = event.x, event.y
 
     def stop_draw(self, event):
@@ -74,18 +90,17 @@ class PlotInterface:
 
     def use_pencil(self):
         """Set the tool to pencil."""
-        self.drawing_color = self.color_button['text'] if self.color_button['text'] != "Choose Color" else "black"
+        self.current_tool = "pencil"
 
     def use_eraser(self):
         """Set the tool to eraser."""
-        self.drawing_color = self.bg
+        self.current_tool = "eraser"
 
     def choose_color(self):
-        """Choose the pencil color."""
+        """Open a color chooser dialog and set the pencil color."""
         color = colorchooser.askcolor(color=self.drawing_color)
         if color[1]:
             self.drawing_color = color[1]
-            self.color_button.config(text=color[1])
 
     def open_save_dialog(self):
         """Open a modal-like dialog window for saving options."""
