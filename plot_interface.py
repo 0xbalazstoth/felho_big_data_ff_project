@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox, Toplevel, IntVar, colorchooser, Scale, Menubutton, Menu
+from tkinter import LabelFrame, filedialog, messagebox, Toplevel, IntVar, colorchooser, Scale, Menubutton, Menu
 from PIL import Image
 
 class PlotInterface:
@@ -53,8 +53,11 @@ class PlotInterface:
         self.settings_button = tk.Button(self.frame, text="Settings", command=self.open_settings_dialog)
         self.settings_button.pack(side=tk.LEFT)
         
-        self.pencil_size = IntVar(value=2)  # Default pencil size
-        self.eraser_size = IntVar(value=10)  # Default eraser size
+        self.clear_button = tk.Button(self.frame, text="Clear Drawing", command=self.clear_hand_drawing)
+        self.clear_button.pack(side=tk.LEFT)
+        
+        self.pencil_size = IntVar(value=2)
+        self.eraser_size = IntVar(value=10)
 
         self.pencil_size_slider = Scale(self.frame, from_=1, to=10, orient=tk.HORIZONTAL, label="Pencil Size", variable=self.pencil_size)
         self.eraser_size_slider = Scale(self.frame, from_=1, to=50, orient=tk.HORIZONTAL, label="Eraser Size", variable=self.eraser_size)
@@ -75,32 +78,37 @@ class PlotInterface:
         """Show the Tkinter window with the canvas."""
         self.root.mainloop()
         
+    def clear_hand_drawing(self):
+        """Clear only the hand-drawn elements from the canvas."""
+        for element in self.hand_drawn_elements:
+            self.canvas.delete(element)
+        self.hand_drawn_elements.clear()
+        
     def open_settings_dialog(self):
         """Open a settings dialog with options for drawing settings."""
         self.settings_dialog = Toplevel(self.root)
         self.settings_dialog.title("Settings")
         
         # Set geometry and make the dialog modal-like
-        dialog_width, dialog_height = 300, 200
+        dialog_width, dialog_height = 300, 250
         center_x = self.root.winfo_x() + (self.root.winfo_width() / 2) - (dialog_width / 2)
         center_y = self.root.winfo_y() + (self.root.winfo_height() / 2) - (dialog_height / 2)
         self.settings_dialog.geometry(f"{dialog_width}x{dialog_height}+{int(center_x)}+{int(center_y)}")
         self.settings_dialog.resizable(False, False)
 
         # Drawing settings section
-        drawing_frame = tk.Frame(self.settings_dialog)
-        drawing_frame.pack(pady=10)
-
-        tk.Label(drawing_frame, text="Drawing Settings").pack()
+        drawing_frame = LabelFrame(self.settings_dialog, text="Drawing Settings", padx=10, pady=10)
+        drawing_frame.pack(padx=10, pady=10, fill="both", expand=True)
 
         # Pencil size setting
-        tk.Scale(drawing_frame, from_=1, to=10, orient=tk.HORIZONTAL, label="Pencil Size", variable=self.pencil_size).pack()
+        pencil_size_frame = LabelFrame(drawing_frame, text="Pencil Size", padx=10, pady=10)
+        pencil_size_frame.pack(padx=5, pady=5, fill="both", expand=True)
+        tk.Scale(pencil_size_frame, from_=1, to=10, orient=tk.HORIZONTAL, variable=self.pencil_size).pack(fill="x", expand=True)
 
         # Eraser size setting
-        tk.Scale(drawing_frame, from_=1, to=50, orient=tk.HORIZONTAL, label="Eraser Size", variable=self.eraser_size).pack()
-
-        # Close or apply settings button
-        tk.Button(self.settings_dialog, text="Close", command=self.settings_dialog.destroy).pack(pady=10)
+        eraser_size_frame = LabelFrame(drawing_frame, text="Eraser Size", padx=10, pady=10)
+        eraser_size_frame.pack(padx=5, pady=5, fill="both", expand=True)
+        tk.Scale(eraser_size_frame, from_=1, to=50, orient=tk.HORIZONTAL, variable=self.eraser_size).pack(fill="x", expand=True)
 
     def start_draw(self, event):
         """Initialize the start point for drawing."""
