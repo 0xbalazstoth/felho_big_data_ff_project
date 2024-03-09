@@ -52,6 +52,7 @@ class PlotInterface:
         self.canvas.bind("<ButtonRelease-1>", self.stop_draw)
         
         self.hand_drawn_elements = []
+        self.eraser_indicator = None
 
         self.last_x, self.last_y = None, None
 
@@ -72,6 +73,8 @@ class PlotInterface:
     def start_draw(self, event):
         """Initialize the start point for drawing."""
         self.last_x, self.last_y = event.x, event.y
+        if self.current_tool == "eraser":
+            self.create_eraser_indicator(event.x, event.y)
 
     def draw(self, event):
         """Draw on the canvas based on the current tool and its size."""
@@ -83,7 +86,6 @@ class PlotInterface:
                     capstyle=tk.ROUND, smooth=tk.TRUE)
                 self.hand_drawn_elements.append(line_id)  # Track this hand-drawn line
             elif self.current_tool == "eraser":
-                # Instead of drawing a line, we'll find overlapping items and remove them
                 overlapping_items = self.canvas.find_overlapping(
                     event.x - self.eraser_size_slider.get()/2,
                     event.y - self.eraser_size_slider.get()/2,
@@ -93,19 +95,65 @@ class PlotInterface:
                     if item in self.hand_drawn_elements:
                         self.canvas.delete(item)
                         self.hand_drawn_elements.remove(item)  # Remove from tracking list
-            self.last_x, self.last_y = event.x, event.y
+                self.move_eraser_indicator(event.x, event.y)  # Move the indicator with the cursor
+        self.last_x, self.last_y = event.x, event.y
 
     def stop_draw(self, event):
-        """Reset the last position."""
+        """Reset the last position and remove the eraser indicator."""
         self.last_x, self.last_y = None, None
+        if self.current_tool == "eraser":
+            self.remove_eraser_indicator() 
 
     def use_pencil(self):
         """Set the tool to pencil."""
         self.current_tool = "pencil"
+        self.hide_eraser_indicator()
 
     def use_eraser(self):
         """Set the tool to eraser."""
         self.current_tool = "eraser"
+        self.show_eraser_indicator()
+        
+    def show_eraser_indicator(self):
+        """Show the eraser indicator on the canvas."""
+        if not self.eraser_indicator:
+            # Create an oval that follows the mouse
+            self.eraser_indicator = self.canvas.create_oval(0, 0, 0, 0, outline="gray", width=2)
+        self.update_eraser_indicator(self.root.winfo_pointerx() - self.root.winfo_rootx(),
+                                     self.root.winfo_pointery() - self.root.winfo_rooty())
+        
+    def hide_eraser_indicator(self):
+        """Hide the eraser indicator."""
+        if self.eraser_indicator:
+            self.canvas.delete(self.eraser_indicator)
+            self.eraser_indicator = None
+
+    def update_eraser_indicator(self, x, y):
+        """Update the position of the eraser indicator to follow the mouse."""
+        if self.eraser_indicator:
+            radius = self.eraser_size_slider.get() / 2
+            self.canvas.coords(self.eraser_indicator, x - radius, y - radius, x + radius, y + radius)
+            
+    def create_eraser_indicator(self, x, y):
+        """Create an eraser indicator that follows the cursor."""
+        radius = self.eraser_size_slider.get() / 2
+        self.eraser_indicator = self.canvas.create_oval(
+            x - radius, y - radius, x + radius, y + radius,
+            outline="gray", width=1, dash=(4, 2))
+
+    def move_eraser_indicator(self, x, y):
+        """Move the eraser indicator with the cursor."""
+        if self.eraser_indicator:
+            radius = self.eraser_size_slider.get() / 2
+            self.canvas.coords(
+                self.eraser_indicator,
+                x - radius, y - radius, x + radius, y + radius)
+
+    def remove_eraser_indicator(self):
+        """Remove the eraser indicator from the canvas."""
+        if self.eraser_indicator:
+            self.canvas.delete(self.eraser_indicator)
+            self.eraser_indicator = None
 
     def choose_color(self):
         """Open a color chooser dialog and set the pencil color."""
