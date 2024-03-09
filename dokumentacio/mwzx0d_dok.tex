@@ -74,7 +74,7 @@ A Tkinter általában a Python 3 része, így nincs szükség külön telepíté
     A Python telepítésekor a Tkinter általában automatikusan települ.
 \end{enumerate}
 
-\subsection{Szükséges Python Csomagok Telepítése}
+\subsection{Python Csomagok Telepítése}
 A Big Data interaktív adatvizualizációs csomag használatához néhány további Python csomagot is telepíteni kell. Ezek a következők:
 \begin{itemize}
     \item \textbf{numpy:} Matematikai műveletek végrehajtásához.
@@ -89,6 +89,30 @@ pip3 install numpy pandas matplotlib seaborn scikit-learn
 \end{lstlisting}
 Ez a parancs automatikusan letölti és telepíti a felsorolt csomagok legfrissebb verzióit a rendszerére.
 
+\subsection{Egyéb Csomagok Telepítése}
+\begin{itemize}
+    \item \textbf{Ghostscript:} Diagrammok mentésére szolgál.
+\end{itemize}
+\subsubsection*{Windows rendszer esetén:}
+\begin{enumerate}
+    \item Töltse le a Ghostscript telepítőjét a hivatalos \href{https://www.ghostscript.com/download/gsdnld.html}{Ghostscript weboldalról}.
+    \item Futtassa a telepítőt és kövesse a telepítési utasításokat.
+    \item Adja hozzá azt a könyvtárat, ahol a \texttt{gs.exe} található, a rendszer PATH környezeti változójához. Ez általában a \texttt{C:\textbackslash Program Files\textbackslash gs\textbackslash gsX.XX\textbackslash bin} (ahol az \texttt{X.XX} a verziószám).
+\end{enumerate}
+
+\subsubsection*{macOS rendszer esetén:}
+A Ghostscript telepíthető a Homebrew segítségével, ami egy csomagkezelő macOS-re:
+\begin{lstlisting}[language=sh]
+brew install ghostscript
+\end{lstlisting}
+
+\subsubsection*{Linux esetén:}
+A legtöbb Linux disztribúció a csomagkezelőjén keresztül telepítheti a Ghostscriptet. Például Ubuntu vagy Debian alapú rendszereken a következőképpen:
+\begin{lstlisting}[language=sh]
+sudo apt-get update
+sudo apt-get install ghostscript
+\end{lstlisting}
+
 \section{Használat}
 Magyarázza el, hogyan kell használni a szoftvert itt.
 
@@ -99,7 +123,6 @@ Itt vannak néhány kód példa:
 \begin{lstlisting}[language=Python, caption=Python Példa]
 def hello_world():
     print("Hello, world!")
-
 hello_world()
 \end{lstlisting}
 
