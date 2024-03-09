@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox, Toplevel, IntVar, colorchooser, Scale
+from tkinter import filedialog, messagebox, Toplevel, IntVar, colorchooser, Scale, Menubutton, Menu
 from PIL import Image
 
 class PlotInterface:
@@ -22,27 +22,23 @@ class PlotInterface:
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         self.drawing_color = "black"
-        self.current_tool = "pencil"  # Default tool
+        self.current_tool = "pencil"
 
-        # Pencil button and color picker
         self.pencil_button = tk.Button(self.frame, text="Pencil", command=self.use_pencil)
         self.pencil_button.pack(side=tk.LEFT)
         self.color_button = tk.Button(self.frame, text="Choose Color", command=self.choose_color)
         self.color_button.pack(side=tk.LEFT)
 
-        # Pencil size slider
-        self.pencil_size_slider = Scale(self.frame, from_=1, to=10, orient=tk.HORIZONTAL, label="Pencil Size")
-        self.pencil_size_slider.set(2)  # Default size
-        self.pencil_size_slider.pack(side=tk.LEFT)
+        # self.pencil_size_slider = Scale(self.frame, from_=1, to=10, orient=tk.HORIZONTAL, label="Pencil Size")
+        # self.pencil_size_slider.set(2)
+        # self.pencil_size_slider.pack(side=tk.LEFT)
 
-        # Eraser button
         self.eraser_button = tk.Button(self.frame, text="Eraser", command=self.use_eraser)
         self.eraser_button.pack(side=tk.LEFT)
 
-        # Eraser size slider
-        self.eraser_size_slider = Scale(self.frame, from_=1, to=50, orient=tk.HORIZONTAL, label="Eraser Size")
-        self.eraser_size_slider.set(10)  # Default size
-        self.eraser_size_slider.pack(side=tk.LEFT)
+        # self.eraser_size_slider = Scale(self.frame, from_=1, to=50, orient=tk.HORIZONTAL, label="Eraser Size")
+        # self.eraser_size_slider.set(10)
+        # self.eraser_size_slider.pack(side=tk.LEFT)
 
         self.save_button = tk.Button(self.frame, text="Save as PNG", command=self.open_save_dialog)
         self.save_button.pack(side=tk.RIGHT, pady=10)
@@ -53,6 +49,15 @@ class PlotInterface:
         
         self.hand_drawn_elements = []
         self.eraser_indicator = None
+        
+        self.settings_button = tk.Button(self.frame, text="Settings", command=self.open_settings_dialog)
+        self.settings_button.pack(side=tk.LEFT)
+        
+        self.pencil_size = IntVar(value=2)  # Default pencil size
+        self.eraser_size = IntVar(value=10)  # Default eraser size
+
+        self.pencil_size_slider = Scale(self.frame, from_=1, to=10, orient=tk.HORIZONTAL, label="Pencil Size", variable=self.pencil_size)
+        self.eraser_size_slider = Scale(self.frame, from_=1, to=50, orient=tk.HORIZONTAL, label="Eraser Size", variable=self.eraser_size)
 
         self.last_x, self.last_y = None, None
 
@@ -69,6 +74,33 @@ class PlotInterface:
     def show(self):
         """Show the Tkinter window with the canvas."""
         self.root.mainloop()
+        
+    def open_settings_dialog(self):
+        """Open a settings dialog with options for drawing settings."""
+        self.settings_dialog = Toplevel(self.root)
+        self.settings_dialog.title("Settings")
+        
+        # Set geometry and make the dialog modal-like
+        dialog_width, dialog_height = 300, 200
+        center_x = self.root.winfo_x() + (self.root.winfo_width() / 2) - (dialog_width / 2)
+        center_y = self.root.winfo_y() + (self.root.winfo_height() / 2) - (dialog_height / 2)
+        self.settings_dialog.geometry(f"{dialog_width}x{dialog_height}+{int(center_x)}+{int(center_y)}")
+        self.settings_dialog.resizable(False, False)
+
+        # Drawing settings section
+        drawing_frame = tk.Frame(self.settings_dialog)
+        drawing_frame.pack(pady=10)
+
+        tk.Label(drawing_frame, text="Drawing Settings").pack()
+
+        # Pencil size setting
+        tk.Scale(drawing_frame, from_=1, to=10, orient=tk.HORIZONTAL, label="Pencil Size", variable=self.pencil_size).pack()
+
+        # Eraser size setting
+        tk.Scale(drawing_frame, from_=1, to=50, orient=tk.HORIZONTAL, label="Eraser Size", variable=self.eraser_size).pack()
+
+        # Close or apply settings button
+        tk.Button(self.settings_dialog, text="Close", command=self.settings_dialog.destroy).pack(pady=10)
 
     def start_draw(self, event):
         """Initialize the start point for drawing."""
@@ -84,7 +116,7 @@ class PlotInterface:
                     self.last_x, self.last_y, event.x, event.y,
                     fill=self.drawing_color, width=self.pencil_size_slider.get(),
                     capstyle=tk.ROUND, smooth=tk.TRUE)
-                self.hand_drawn_elements.append(line_id)  # Track this hand-drawn line
+                self.hand_drawn_elements.append(line_id)
             elif self.current_tool == "eraser":
                 overlapping_items = self.canvas.find_overlapping(
                     event.x - self.eraser_size_slider.get()/2,
@@ -94,8 +126,8 @@ class PlotInterface:
                 for item in overlapping_items:
                     if item in self.hand_drawn_elements:
                         self.canvas.delete(item)
-                        self.hand_drawn_elements.remove(item)  # Remove from tracking list
-                self.move_eraser_indicator(event.x, event.y)  # Move the indicator with the cursor
+                        self.hand_drawn_elements.remove(item)
+                self.move_eraser_indicator(event.x, event.y)
         self.last_x, self.last_y = event.x, event.y
 
     def stop_draw(self, event):
