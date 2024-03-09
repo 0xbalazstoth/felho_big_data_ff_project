@@ -50,6 +50,8 @@ class PlotInterface:
         self.canvas.bind("<B1-Motion>", self.draw)
         self.canvas.bind("<ButtonPress-1>", self.start_draw)
         self.canvas.bind("<ButtonRelease-1>", self.stop_draw)
+        
+        self.hand_drawn_elements = []
 
         self.last_x, self.last_y = None, None
 
@@ -75,13 +77,22 @@ class PlotInterface:
         """Draw on the canvas based on the current tool and its size."""
         if self.last_x and self.last_y:
             if self.current_tool == "pencil":
-                self.canvas.create_line(self.last_x, self.last_y, event.x, event.y,
-                                        fill=self.drawing_color, width=self.pencil_size_slider.get(),
-                                        capstyle=tk.ROUND, smooth=tk.TRUE)
+                line_id = self.canvas.create_line(
+                    self.last_x, self.last_y, event.x, event.y,
+                    fill=self.drawing_color, width=self.pencil_size_slider.get(),
+                    capstyle=tk.ROUND, smooth=tk.TRUE)
+                self.hand_drawn_elements.append(line_id)  # Track this hand-drawn line
             elif self.current_tool == "eraser":
-                self.canvas.create_line(self.last_x, self.last_y, event.x, event.y,
-                                        fill=self.bg, width=self.eraser_size_slider.get(),
-                                        capstyle=tk.ROUND, smooth=tk.TRUE)
+                # Instead of drawing a line, we'll find overlapping items and remove them
+                overlapping_items = self.canvas.find_overlapping(
+                    event.x - self.eraser_size_slider.get()/2,
+                    event.y - self.eraser_size_slider.get()/2,
+                    event.x + self.eraser_size_slider.get()/2,
+                    event.y + self.eraser_size_slider.get()/2)
+                for item in overlapping_items:
+                    if item in self.hand_drawn_elements:
+                        self.canvas.delete(item)
+                        self.hand_drawn_elements.remove(item)  # Remove from tracking list
             self.last_x, self.last_y = event.x, event.y
 
     def stop_draw(self, event):
