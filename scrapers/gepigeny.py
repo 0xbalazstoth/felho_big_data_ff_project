@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import requests
 
 class GepigenyScraper:
-    def __init__(self, base_url, save_callback):
+    def __init__(self, base_url, save_callback, status_label):
         """
         Initializes the scraper.
 
@@ -16,6 +16,7 @@ class GepigenyScraper:
         """
         self.base_url = base_url
         self.save_callback = save_callback
+        self.status_label = status_label
     
     def scrape_gepigeny_comments(self):
         base_url = self.base_url.get()
@@ -50,8 +51,12 @@ class GepigenyScraper:
                 time.sleep(random.uniform(1, 5))
                 c_start += 50
                 print(f"Scraped comments from page {page}/{last_page_number}. Total comments so far: {len(comments)}")
+                
+                self.status_label.configure(text=f"Scraped comments from page {page}/{last_page_number}. \n Total comments so far: {len(comments)}")
             except Exception as e:
                 print(f"Error scraping page {page} or saving comments: {e}")
+                self.status_label.configure(text=f"Error on page {page}: {e}")
                 break
 
         print(f"Finished scraping. Total comments scraped: {len(comments)} across {last_page_number} pages.")
+        self.status_label.configure(text=f"Finished scraping. Total comments: {len(comments)} across {last_page_number} pages.")

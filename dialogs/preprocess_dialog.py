@@ -20,33 +20,10 @@ class PreprocessDialog(simpledialog.Dialog):
         ctk.CTkCheckBox(master, text='Clean Text', variable=self.clean_text_var).grid(row=1, column=0, sticky='w')
         info_button = ctk.CTkButton(master, text='i')
         info_button.grid(row=1, column=1, sticky='w')
-        self.create_tooltip(info_button, 'Convert to lowercase\n- Remove URLs, mentions, hashtags\n- Remove numbers\n- Normalize spaces\n- Remove emojis')
         return master
 
-    def create_tooltip(self, widget, text):
-        tooltip_window = None
-
-        def on_enter(event):
-            nonlocal tooltip_window
-            x, y, cx, cy = widget.bbox('insert')
-            x += widget.winfo_rootx() + 25
-            y += widget.winfo_rooty() + 20
-            tooltip_window = ctk.CTkToplevel(widget)
-            tooltip_window.wm_overrideredirect(True)
-            tooltip_window.wm_geometry('+%d+%d' % (x, y))
-            label = ctk.CTkLabel(tooltip_window, text=text, justify='left', background='#ffffe0', relief='solid', foreground='black', borderwidth=1, font=('tahoma', '8', 'normal'))
-            label.pack(ipadx=1)
-
-        def on_leave(event):
-            nonlocal tooltip_window
-            if tooltip_window:
-                tooltip_window.destroy()
-                tooltip_window = None
-        widget.bind('<Enter>', on_enter)
-        widget.bind('<Leave>', on_leave)
-
     def load_dataset(self):
-        file_types = [('CSV files', '*.csv'), ('JSON files', '*.json')]
+        file_types = [('CSV files', '*.csv')]
         file_path = filedialog.askopenfilename(filetypes=file_types)
         if file_path:
             self.file_path_var.set(file_path)
@@ -62,7 +39,16 @@ class PreprocessDialog(simpledialog.Dialog):
             return
         if self.clean_text_var.get():
             df = df.applymap(lambda x: self.clean_text(x) if isinstance(x, str) else x)
-        messagebox.showinfo('Success', 'Preprocessing completed.')
+        
+        # Prompt user for save location
+        save_path = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
+        if not save_path:
+            messagebox.showinfo('Info', 'Preprocessing completed but no file was saved.')
+            return
+        
+        df.to_csv(save_path, index=False)
+        
+        messagebox.showinfo('Success', 'Preprocessing completed. File saved at: {}'.format(save_path))
 
     def clean_text(self, text):
         if pd.isnull(text):
