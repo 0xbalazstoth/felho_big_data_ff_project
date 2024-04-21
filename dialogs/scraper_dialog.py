@@ -74,23 +74,15 @@ class ScrapeDialog(simpledialog.Dialog):
         
         scrape_comments_button = ctk.CTkButton(tab, text='Get comments', command=self.threaded_gepigeny_scrape)
         scrape_comments_button.pack(pady=10)
-        
-        self.stop_scrape_button = ctk.CTkButton(tab, text='Stop scraping', command=self.stop_gepigeny_scrape)
-        self.stop_scrape_button.pack(pady=10)
 
     def threaded_gepigeny_scrape(self):
         self.gepigeny_status_label.pack(pady=10)
-        print("Attempting to enable stop button...")
         self.thread = threading.Thread(target=self.scrape_gepigeny_comments)
         self.thread.start()
 
     def scrape_gepigeny_comments(self):
         gepigeny_scraper = GepigenyScraper(self.url, self.save_as_json, self.gepigeny_status_label)
         gepigeny_scraper.scrape_gepigeny_comments()
-        
-    def stop_gepigeny_scrape(self):
-        print("Scraping stopped")
-        self.thread.stop()
 
     def google_play_reviews(self):
         google_play_scraper = GooglePlayScraper(self.app_id_entry, self.save_as_json)
