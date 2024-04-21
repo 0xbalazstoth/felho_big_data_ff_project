@@ -35,7 +35,6 @@ class Barchart:
             step = round(step, 1)
         return step
 
-
     def redraw(self):
         self.canvas.delete("all")
 

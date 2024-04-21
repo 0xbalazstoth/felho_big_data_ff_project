@@ -16,15 +16,15 @@ teachers_df = teachers_df.dropna(subset=['rating_results_avg_rating'])
 # Preparing data for your custom plotter
 groups = [{'label': f"{row['first_name']} {row['last_name']}", 'values': {'Rating': row['rating_results_avg_rating']}} for index, row in teachers_df.iterrows()]
 
-plot_interface = PlotInterface()
-barchart = Barchart(plot_interface.canvas)
-barchart.add_title("Average Ratings of Teachers")
+# plot_interface = PlotInterface()
+# barchart = Barchart(plot_interface.canvas)
+# barchart.add_title("Average Ratings of Teachers")
 
-colors = ['red', 'blue', 'green', 'yellow']
-barchart.set_data(groups, colors)
+# colors = ['red', 'blue', 'green', 'yellow']
+# barchart.set_data(groups, colors)
 
-plot_interface.plot(barchart)
-plot_interface.show()
+# plot_interface.plot(barchart)
+# plot_interface.show()
 
 groups = [
     {'label': 'Group A', 'values': {'C': 25, 'C++': 15, 'Java': 34, 'Python': 40}},
