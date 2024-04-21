@@ -4,6 +4,20 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{{assets/}}
+
+\newcommand{\fullwidthimage}[1]{
+    \begin{center}
+        \makebox[\textwidth]{\includegraphics[width=\paperwidth]{#1}}
+    \end{center}
+}
+
+\newcommand{\customwidthimage}[2]{
+    \begin{center}
+        \makebox[\textwidth]{\includegraphics[width=#2]{#1}}
+    \end{center}
+}
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{white},
@@ -31,99 +45,29 @@
 
 \begin{document}
 
-\title{Felhő alapú IoT és Big Data platformok\\ \small Dokumentáció}
-\author{Tóth Balázs - MWZX0D}
+\title{Cloud based IoT and Big Data platforms\\ \small Documentation}
+\author{Balázs Tóth - MWZX0D}
 \maketitle
-
-\renewcommand{\contentsname}{Tartalomjegyzék}
 
 \tableofcontents
 \clearpage
 
-\section{Bevezetés}
-A dokumentum bemutatja a \textbf{Python} programozási nyelv és a \textbf{Tkinter} grafikus felhasználói felületi toolkit segítségével fejlesztett Big Data interaktív adatvizualizációs csomagot. A csomag célja lehetővé tenni a felhasználók számára, hogy könnyedén vizualizálják és manipulálják nagy méretű adathalmazokat interaktív módon. A csomagot könnyen integrálhatják különböző adatelemzési folyamatokba és alkalmazásokba, ami lehetővé teszi a felhasználók számára, hogy felfedezzék és megértsék az adatokat a vizualizációk segítségével.
+\input{introduction.tex}
 
-\section{Követelmények}
-A Big Data interaktív adatvizualizációs csomag használatához a következő követelmények teljesülésére van szükség:
+\input{req.tex}
 
-\subsection{Python 3 Telepítése}
-\begin{enumerate}
-    \item Látogasson el a Python hivatalos webhelyére a következő címen: \url{https://www.python.org/downloads/}.
-    \item Válassza ki a legfrissebb Python 3 verziót, és kattintson a letöltésre.
-    \item Indítsa el a letöltött fájlt, és kövesse az utasításokat a Python telepítéséhez a rendszerére.
-    \item Ellenőrizze a telepítést a Python verziójának futtatásával a parancssorban vagy terminálban:
-    \begin{lstlisting}[language=bash]
-    python3 --version
-    \end{lstlisting}
-    A rendszernek válaszolnia kell a telepített Python 3 verziójával.
-\end{enumerate}
+\input{usage.tex}
 
-\subsection{Tkinter Telepítése}
-A Tkinter általában a Python 3 része, így nincs szükség külön telepítésre. Ha mégsem lenne telepítve a rendszerére, akkor a következő parancsok segítségével telepítheti:
-\begin{enumerate}
-    \item \textbf{Debian/Ubuntu rendszerek esetén:}
-    \begin{lstlisting}[language=bash]
-    sudo apt-get update
-    sudo apt-get install python3-tk
-    \end{lstlisting}
-    \item \textbf{Red Hat/Fedora rendszerek esetén:}
-    \begin{lstlisting}[language=bash]
-    sudo dnf install python3-tkinter
-    \end{lstlisting}
-    \item \textbf{Windows rendszerek esetén:}
-    A Python telepítésekor a Tkinter általában automatikusan települ.
-\end{enumerate}
+\input{vis.tex}
 
-\subsection{Python Csomagok Telepítése}
-A Big Data interaktív adatvizualizációs csomag használatához néhány további Python csomagot is telepíteni kell. Ezek a következők:
-\begin{itemize}
-    \item \textbf{numpy:} Matematikai műveletek végrehajtásához.
-    \item \textbf{pandas:} Adatmanipulációhoz és -elemzéshez.
-    \item \textbf{matplotlib:} Grafikonok és diagramok készítéséhez.
-    \item \textbf{seaborn:} Adatvizualizációs könyvtár a matplotlib kiegészítéseként.
-    \item \textbf{scikit-learn:} Gépi tanulás algoritmusokhoz és eszközökhöz.
-\end{itemize}
-Ezeket a csomagokat a Python pip csomagkezelőjével telepítheti:
-\begin{lstlisting}[language=bash]
-pip3 install numpy pandas matplotlib seaborn scikit-learn
-\end{lstlisting}
-Ez a parancs automatikusan letölti és telepíti a felsorolt csomagok legfrissebb verzióit a rendszerére.
+% \section{Kód Példák}
+% Itt vannak néhány kód példa:
 
-\subsection{Egyéb Csomagok Telepítése}
-\begin{itemize}
-    \item \textbf{Ghostscript:} Diagrammok mentésére szolgál.
-\end{itemize}
-\subsubsection*{Windows rendszer esetén:}
-\begin{enumerate}
-    \item Töltse le a Ghostscript telepítőjét a hivatalos \href{https://www.ghostscript.com/download/gsdnld.html}{Ghostscript weboldalról}.
-    \item Futtassa a telepítőt és kövesse a telepítési utasításokat.
-    \item Adja hozzá azt a könyvtárat, ahol a \texttt{gs.exe} található, a rendszer PATH környezeti változójához. Ez általában a \texttt{C:\textbackslash Program Files\textbackslash gs\textbackslash gsX.XX\textbackslash bin} (ahol az \texttt{X.XX} a verziószám).
-\end{enumerate}
-
-\subsubsection*{macOS rendszer esetén:}
-A Ghostscript telepíthető a Homebrew segítségével, ami egy csomagkezelő macOS-re:
-\begin{lstlisting}[language=sh]
-brew install ghostscript
-\end{lstlisting}
-
-\subsubsection*{Linux esetén:}
-A legtöbb Linux disztribúció a csomagkezelőjén keresztül telepítheti a Ghostscriptet. Például Ubuntu vagy Debian alapú rendszereken a következőképpen:
-\begin{lstlisting}[language=sh]
-sudo apt-get update
-sudo apt-get install ghostscript
-\end{lstlisting}
-
-\section{Használat}
-Magyarázza el, hogyan kell használni a szoftvert itt.
-
-\section{Kód Példák}
-Itt vannak néhány kód példa:
-
-\subsection{Python Példa}
-\begin{lstlisting}[language=Python, caption=Python Példa]
-def hello_world():
-    print("Hello, world!")
-hello_world()
-\end{lstlisting}
+% \subsection{Python Példa}
+% \begin{lstlisting}[language=Python, caption=Python Példa]
+% def hello_world():
+%     print("Hello, world!")
+% hello_world()
+% \end{lstlisting}
 
 \end{document}

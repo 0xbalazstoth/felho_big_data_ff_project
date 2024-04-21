@@ -98,6 +98,15 @@ INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/rerunfilecheck/rerunfilecheck.sty
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/generic/uniquecounter/uniquecounter.sty
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/generic/uniquecounter/uniquecounter.sty
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphicx.sty
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphicx.sty
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphics.sty
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphics.sty
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/trig.sty
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/trig.sty
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/graphics.cfg
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/graphics.cfg
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/graphics.cfg
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3backend/l3backend-pdftex.def
 INPUT ./mwzx0d_dok.aux
@@ -107,6 +116,11 @@ OUTPUT mwzx0d_dok.aux
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/epstopdf-pkg/epstopdf-base.sty
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/epstopdf-pkg/epstopdf-base.sty
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00miktex/epstopdf-sys.cfg
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00miktex/epstopdf-sys.cfg
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00miktex/epstopdf-sys.cfg
 INPUT ./mwzx0d_dok.out
 INPUT ./mwzx0d_dok.out
 INPUT mwzx0d_dok.out
@@ -135,6 +149,12 @@ INPUT mwzx0d_dok.toc
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmbx10.tfm
 OUTPUT mwzx0d_dok.toc
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map
+INPUT ./introduction.tex
+INPUT ./introduction.tex
+INPUT introduction.tex
+INPUT ./req.tex
+INPUT ./req.tex
+INPUT req.tex
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmtt10.tfm
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
@@ -145,9 +165,86 @@ INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmtt8.tfm
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/tcrm1000.tfm
+INPUT ./usage.tex
+INPUT ./usage.tex
+INPUT usage.tex
+INPUT ./assets/main.png
+INPUT ./assets/main.png
+INPUT ./assets/main.png
+INPUT ./assets/main.png
+INPUT ./assets/main.png
+INPUT ./assets/main.png
+INPUT ./assets/gepigeny.png
+INPUT ./assets/gepigeny.png
+INPUT ./assets/gepigeny.png
+INPUT ./assets/gepigeny.png
+INPUT ./assets/gepigeny.png
+INPUT ./assets/gepigeny.png
+INPUT ./assets/google_play.png
+INPUT ./assets/google_play.png
+INPUT ./assets/google_play.png
+INPUT ./assets/google_play.png
+INPUT ./assets/google_play.png
+INPUT ./assets/google_play.png
+INPUT ./assets/markmyprofessor.png
+INPUT ./assets/markmyprofessor.png
+INPUT ./assets/markmyprofessor.png
+INPUT ./assets/markmyprofessor.png
+INPUT ./assets/markmyprofessor.png
+INPUT ./assets/markmyprofessor.png
+INPUT ./assets/main.png
+INPUT ./assets/main.png
+INPUT ./assets/main.png
+INPUT ./assets/preprocess.png
+INPUT ./assets/preprocess.png
+INPUT ./assets/preprocess.png
+INPUT ./assets/preprocess.png
+INPUT ./assets/preprocess.png
+INPUT ./assets/preprocess.png
+INPUT ./vis.tex
+INPUT ./vis.tex
+INPUT vis.tex
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
 INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstlang1.sty
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/plain/graphics-pln/color.tex
+INPUT /Users/0xbalazstoth/Library/Application Support/MiKTeX/texmfs/install/tex/plain/graphics-pln/color.tex
+INPUT ./assets/color.png
+INPUT ./assets/color.png
+INPUT ./assets/color.png
+INPUT ./assets/color.png
+INPUT ./assets/color.png
+INPUT ./assets/color.png
+INPUT ./assets/drawing.png
+INPUT ./assets/drawing.png
+INPUT ./assets/drawing.png
+INPUT ./assets/drawing.png
+INPUT ./assets/drawing.png
+INPUT ./assets/drawing.png
+INPUT ./assets/settings.png
+INPUT ./assets/settings.png
+INPUT ./assets/settings.png
+INPUT ./assets/settings.png
+INPUT ./assets/settings.png
+INPUT ./assets/settings.png
+INPUT ./assets/save.png
+INPUT ./assets/save.png
+INPUT ./assets/save.png
+INPUT ./assets/save.png
+INPUT ./assets/save.png
+INPUT ./assets/save.png
+INPUT ./assets/line.png
+INPUT ./assets/line.png
+INPUT ./assets/line.png
+INPUT ./assets/line.png
+INPUT ./assets/line.png
+INPUT ./assets/line.png
+INPUT ./assets/bar.png
+INPUT ./assets/bar.png
+INPUT ./assets/bar.png
+INPUT ./assets/bar.png
+INPUT ./assets/bar.png
+INPUT ./assets/bar.png
 INPUT mwzx0d_dok.aux
 INPUT ./mwzx0d_dok.out
 INPUT ./mwzx0d_dok.out

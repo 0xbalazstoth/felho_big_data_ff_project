@@ -1,0 +1,58 @@
+\section{Requirements}
+\subsection{Installing Python 3}
+\begin{enumerate}
+\item Visit the official Python website at: \url{https://www.python.org/downloads/}.
+\item Select the latest Python 3 version and click on the download link.
+\item Run the downloaded file and follow the instructions to install Python on your system.
+\item Verify the installation by running Python version in the command line or terminal:
+\begin{lstlisting}[language=bash]
+python3 --version
+\end{lstlisting}
+Your system should respond with the installed Python 3 version.
+\end{enumerate}
+
+\clearpage
+\subsection{Installing Tkinter}
+Tkinter is usually part of Python 3, so a separate installation is typically not required. If it is not installed on your system, you can install it with the following commands:
+\begin{enumerate}
+\item \textbf{For Debian/Ubuntu systems:}
+\begin{lstlisting}[language=bash]
+sudo apt-get update
+sudo apt-get install python3-tk
+\end{lstlisting}
+\item \textbf{For Red Hat/Fedora systems:}
+\begin{lstlisting}[language=bash]
+sudo dnf install python3-tkinter
+\end{lstlisting}
+\item \textbf{For Windows systems:}
+Tkinter is usually automatically installed with Python.
+\end{enumerate}
+
+\subsection{Installing Packages}
+\subsubsection*{CustomTkinter}
+\begin{lstlisting}[language=sh]
+    pip install customtkinter
+\end{lstlisting}
+
+\begin{itemize}
+\item \textbf{Ghostscript:} For saving diagrams.
+\end{itemize}
+\subsubsection*{For Windows systems:}
+\begin{enumerate}
+\item Download the Ghostscript installer from the official \href{https://www.ghostscript.com/download/gsdnld.html}{Ghostscript website}.
+\item Run the installer and follow the installation instructions.
+\item Add the directory where the \texttt{gs.exe} is located to the system PATH environment variable. This is usually \texttt{C:\textbackslash Program Files\textbackslash gs\textbackslash gsX.XX\textbackslash bin} (where \texttt{X.XX} is the version number).
+\end{enumerate}
+
+\subsubsection*{For macOS systems:}
+Ghostscript can be installed using Homebrew, a package manager for macOS:
+\begin{lstlisting}[language=sh]
+brew install ghostscript
+\end{lstlisting}
+
+\subsubsection*{For Linux systems:}
+Most Linux distributions can install Ghostscript through their package manager. For example, on Ubuntu or Debian-based systems:
+\begin{lstlisting}[language=sh]
+sudo apt-get update
+sudo apt-get install ghostscript
+\end{lstlisting}

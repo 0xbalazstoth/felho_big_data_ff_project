@@ -1,0 +1,123 @@
+\section{Data collection and processing}
+Main screen of the application, especially \textbf{Scrape} option.
+\customwidthimage{main}{10cm}
+
+\subsection{Gépigény scraping}
+\customwidthimage{gepigeny}{10cm}
+\subsubsection*{Initializing the Scraper}
+The \texttt{GepigenyScraper} class is designed to facilitate scraping comments from the Gepigeny website. Its constructor (\texttt{\_\_init\_\_} method) takes three parameters: \texttt{base\_url}, \texttt{save\_callback}, and \texttt{status\_label}. 
+
+\begin{itemize}
+    \item \texttt{base\_url}: This parameter represents the base URL of the Gepigeny website from which comments will be scraped.
+    \item \texttt{save\_callback}: This parameter is a function that will be called to save the scraped data.
+    \item \texttt{status\_label}: This parameter is a reference to a status label widget that will display information about the scraping process.
+\end{itemize}
+
+\subsubsection*{Scraping Gepigeny Comments}
+The \texttt{scrape\_gepigeny\_comments} method of the \texttt{GepigenyScraper} class is responsible for actually scraping comments from the Gepigeny website.
+
+\begin{itemize}
+    \item It starts by retrieving the base URL from the \texttt{base\_url} attribute of the instance.
+    \item Then, it sends a request to the base URL to retrieve the content of the page.
+    \item It uses BeautifulSoup to parse the HTML content and extract the total number of pages of comments available.
+    \item After that, it iterates over each page of comments, extracting the comments and appending them to a list.
+    \item It saves the comments to a JSON file after each page.
+    \item It also updates the status label with information about the scraping progress.
+    \item Finally, it prints a message indicating the completion of the scraping process along with the total number of comments scraped.
+\end{itemize}
+
+\clearpage
+\subsection{Google Play scraping}
+\customwidthimage{google_play}{10cm}
+\subsubsection*{Initializing the Scraper}
+The \texttt{GooglePlayScraper} class is designed for scraping reviews from the Google Play Store. Its constructor (\texttt{\_\_init\_\_} method) takes two parameters: \texttt{app\_id\_entry} and \texttt{save\_callback}.
+
+\begin{itemize}
+    \item \texttt{app\_id\_entry}: This parameter represents the Entry widget for app ID input.
+    \item \texttt{save\_callback}: This parameter is a function that will be called to save the scraped data.
+\end{itemize}
+
+\subsubsection*{Scraping Google Play Reviews}
+The \texttt{scrape\_reviews} method of the \texttt{GooglePlayScraper} class is responsible for scraping reviews for the specified app ID.
+
+\begin{itemize}
+    \item It retrieves the app ID from the \texttt{app\_id\_entry} widget.
+    \item Then, it calls the \texttt{reviews\_all} function from the \texttt{google\_play\_scraper} library to scrape all reviews for the specified app ID.
+    \item It specifies the language and country parameters as 'hu' (Hungarian) for the Hungarian version of Google Play.
+    \item It saves the scraped reviews using the \texttt{save\_callback} function.
+    \item If an error occurs during scraping, it displays an error message using a messagebox.
+\end{itemize}
+
+\subsection{MarkMyProfessor scraping}
+\customwidthimage{markmyprofessor}{10cm}
+\subsubsection*{Initializing the Scraper}
+The \texttt{MarkMyProfessorScraper} class is designed for scraping comments and ratings for teachers from the MarkMyProfessor website. Its constructor (\texttt{\_\_init\_\_} method) takes two parameters: \texttt{name\_entry} and \texttt{save\_callback}.
+
+\begin{itemize}
+    \item \texttt{name\_entry}: This parameter represents the Entry widget for teacher name input.
+    \item \texttt{save\_callback}: This parameter is a function that will be called to save the scraped data.
+\end{itemize}
+
+\subsubsection*{Searching for Teachers}
+The \texttt{search\_teachers} method of the \texttt{MarkMyProfessorScraper} class is responsible for searching for teachers based on the provided name query.
+
+\begin{itemize}
+    \item It retrieves the name query from the \texttt{name\_entry} widget.
+    \item Constructs a URL for the search query to the MarkMyProfessor backend API.
+    \item Sends a GET request to the constructed URL and retrieves the response.
+    \item Parses the JSON response to extract information about the teachers matching the query.
+    \item Calls the \texttt{save\_callback} function to save the retrieved teacher data.
+\end{itemize}
+
+\subsubsection*{Scraping MarkMyProfessor Comments}
+The \texttt{scrape\_markmyprofessor\_comments} method of the \texttt{MarkMyProfessorScraper} class is responsible for scraping comments and ratings for teachers from the MarkMyProfessor website.
+
+\begin{itemize}
+    \item Prompts the user to select a JSON file containing teacher data.
+    \item Parses the selected JSON file and extracts data about the teachers.
+    \item Iterates over each teacher in the data.
+    \item For each teacher, retrieves the slug (unique identifier) and the last page of comments.
+    \item Iterates over each page of comments for the teacher, scraping the comments and saving them to JSON files.
+\end{itemize}
+
+\subsubsection*{Helper Functions}
+The \texttt{get\_markmyprofessor\_teacher\_get\_last\_page} method is a helper function that retrieves the last page of comments for a given teacher slug from the MarkMyProfessor backend API.
+
+\begin{itemize}
+    \item Constructs a URL for the teacher's ratings page to the MarkMyProfessor backend API.
+    \item Sends a GET request to the constructed URL and retrieves the response.
+    \item Parses the JSON response to extract the last page number of comments.
+    \item Returns the last page number.
+\end{itemize}
+
+The \texttt{scrape\_markmyprofessor\_comment} method is a helper function that scrapes comments for a given teacher slug and page number from the MarkMyProfessor backend API.
+
+\begin{itemize}
+    \item Constructs a URL for the teacher's ratings page to the MarkMyProfessor backend API.
+    \item Sends a GET request to the constructed URL and retrieves the response.
+    \item Saves the retrieved comments to a JSON file.
+    \item Returns the JSON response.
+\end{itemize}
+
+\subsection{Preprocessing data}
+Select \textbf{Preprocess} option.
+\customwidthimage{main}{10cm}
+
+\subsubsection*{Data processing}
+\begin{enumerate}
+    \item Load data (csv file format)
+    \item Options: Clean text, Remove duplicates, Remove numeric values
+\end{enumerate}
+
+\noindent \\
+Important to mention that the clean text option cleans the data with these methods:
+\begin{itemize}
+    \item It converts text to lowercase to ensure consistency.
+    \item It removes URLs using regular expressions to eliminate any web links present in the text.
+    \item It removes mentions by matching and replacing patterns starting with '@'.
+    \item It removes hashtags by matching and replacing patterns starting with '\#'.
+    \item It removes extra whitespace by replacing consecutive whitespace characters with a single space.
+    \item Finally, it removes emojis from the text using the demoji library to ensure that only text data remains.
+\end{itemize}
+
+\customwidthimage{preprocess}{10cm}

@@ -1,9 +1,14 @@
-\select@language {hungarian} \contentsline {section}{\numberline {1}Bevezet^^c3^^a9s}{2}{section.1}%
-\select@language {hungarian} \contentsline {section}{\numberline {2}K^^c3^^b6vetelm^^c3^^a9nyek}{2}{section.2}%
-\select@language {hungarian} \contentsline {subsection}{\numberline {2.1}Python 3 Telep^^c3^^adt^^c3^^a9se}{2}{subsection.2.1}%
-\select@language {hungarian} \contentsline {subsection}{\numberline {2.2}Tkinter Telep^^c3^^adt^^c3^^a9se}{2}{subsection.2.2}%
-\select@language {hungarian} \contentsline {subsection}{\numberline {2.3}Python Csomagok Telep^^c3^^adt^^c3^^a9se}{3}{subsection.2.3}%
-\select@language {hungarian} \contentsline {subsection}{\numberline {2.4}Egy^^c3^^a9b Csomagok Telep^^c3^^adt^^c3^^a9se}{3}{subsection.2.4}%
-\select@language {hungarian} \contentsline {section}{\numberline {3}Haszn^^c3^^a1lat}{4}{section.3}%
-\select@language {hungarian} \contentsline {section}{\numberline {4}K^^c3^^b3d P^^c3^^a9ld^^c3^^a1k}{4}{section.4}%
-\select@language {hungarian} \contentsline {subsection}{\numberline {4.1}Python P^^c3^^a9lda}{4}{subsection.4.1}%
+\select@language {hungarian} \contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\select@language {hungarian} \contentsline {section}{\numberline {2}Requirements}{2}{section.2}%
+\select@language {hungarian} \contentsline {subsection}{\numberline {2.1}Installing Python 3}{2}{subsection.2.1}%
+\select@language {hungarian} \contentsline {subsection}{\numberline {2.2}Installing Tkinter}{3}{subsection.2.2}%
+\select@language {hungarian} \contentsline {subsection}{\numberline {2.3}Installing Packages}{3}{subsection.2.3}%
+\select@language {hungarian} \contentsline {section}{\numberline {3}Data collection and processing}{4}{section.3}%
+\select@language {hungarian} \contentsline {subsection}{\numberline {3.1}G^^c3^^a9pig^^c3^^a9ny scraping}{4}{subsection.3.1}%
+\select@language {hungarian} \contentsline {subsection}{\numberline {3.2}Google Play scraping}{6}{subsection.3.2}%
+\select@language {hungarian} \contentsline {subsection}{\numberline {3.3}MarkMyProfessor scraping}{7}{subsection.3.3}%
+\select@language {hungarian} \contentsline {subsection}{\numberline {3.4}Preprocessing data}{9}{subsection.3.4}%
+\select@language {hungarian} \contentsline {section}{\numberline {4}Data visualization}{10}{section.4}%
+\select@language {hungarian} \contentsline {subsection}{\numberline {4.1}Features}{11}{subsection.4.1}%
+\select@language {hungarian} \contentsline {subsection}{\numberline {4.2}Linechart example}{14}{subsection.4.2}%
+\select@language {hungarian} \contentsline {subsection}{\numberline {4.3}Barchart example}{15}{subsection.4.3}%
