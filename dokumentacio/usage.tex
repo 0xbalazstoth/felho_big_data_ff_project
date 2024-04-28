@@ -2,7 +2,7 @@
 Main screen of the application, especially \textbf{Scrape} option.
 \customwidthimage{main}{10cm}
 
-\subsection{Gépigény scraping}
+\subsubsection*{Gépigény scraping}
 \customwidthimage{gepigeny}{10cm}
 \subsubsection*{Initializing the Scraper}
 The \texttt{GepigenyScraper} class is designed to facilitate scraping comments from the Gepigeny website. Its constructor (\texttt{\_\_init\_\_} method) takes three parameters: \texttt{base\_url}, \texttt{save\_callback}, and \texttt{status\_label}. 
@@ -27,7 +27,7 @@ The \texttt{scrape\_gepigeny\_comments} method of the \texttt{GepigenyScraper} c
 \end{itemize}
 
 \clearpage
-\subsection{Google Play scraping}
+\subsubsection*{Google Play scraping}
 \customwidthimage{google_play}{10cm}
 \subsubsection*{Initializing the Scraper}
 The \texttt{GooglePlayScraper} class is designed for scraping reviews from the Google Play Store. Its constructor (\texttt{\_\_init\_\_} method) takes two parameters: \texttt{app\_id\_entry} and \texttt{save\_callback}.
@@ -48,7 +48,7 @@ The \texttt{scrape\_reviews} method of the \texttt{GooglePlayScraper} class is r
     \item If an error occurs during scraping, it displays an error message using a messagebox.
 \end{itemize}
 
-\subsection{MarkMyProfessor scraping}
+\subsubsection*{MarkMyProfessor scraping}
 \customwidthimage{markmyprofessor}{10cm}
 \subsubsection*{Initializing the Scraper}
 The \texttt{MarkMyProfessorScraper} class is designed for scraping comments and ratings for teachers from the MarkMyProfessor website. Its constructor (\texttt{\_\_init\_\_} method) takes two parameters: \texttt{name\_entry} and \texttt{save\_callback}.
@@ -99,7 +99,7 @@ The \texttt{scrape\_markmyprofessor\_comment} method is a helper function that s
     \item Returns the JSON response.
 \end{itemize}
 
-\subsection{Preprocessing data}
+\subsubsection*{Preprocessing data}
 Select \textbf{Preprocess} option.
 \customwidthimage{main}{10cm}
 
